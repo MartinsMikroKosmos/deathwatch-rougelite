@@ -1,0 +1,74 @@
+# CLAUDE.md – Deathwatch Roguelite
+
+> Diese Datei wird von Claude Code automatisch gelesen. Immer aktuell halten!
+
+## Projekt
+Warhammer 40K Deathwatch Roguelite in Top-Down Perspektive.
+- **Engine**: Godot 4.x (neueste stabile Version)
+- **Sprache**: GDScript
+- **Look & Feel**: Rimworld (Pixelart, taktisch, gritty, top-down)
+- **Genre**: Roguelite mit Permadeath, prozeduralen Maps, Upgrade-System
+- **Thema**: Deathwatch Space Marines kämpfen gegen Xenos-Bedrohungen (Tyraniden, Orks, Nekrons)
+
+## Entwickler-Setup
+- Mac, PyCharm Pro + Claude Code
+- GitHub: privates Repository
+
+## Coding Standards
+- **Code & Kommentare**: Englisch
+- **Kommunikation**: Deutsch
+- **Naming**: `snake_case` für Variablen/Funktionen, `PascalCase` für Klassen/Nodes
+- **Keine magischen Zahlen**: Immer Konstanten oder `.tres` Ressourcen
+- **Docstrings**: Jede public-Funktion bekommt einen kurzen Kommentar
+- **Signals over direct calls**: Lose Kopplung durch Godot Signals bevorzugen
+- **Data-driven**: Stats/Balancing in Ressource-Dateien, nicht hardcoded
+
+## Architektur-Prinzipien
+- **Composition over Inheritance**: Systeme als separate Nodes/Autoloads
+- **Autoloads** für globale Systeme: GameManager, EventBus, SaveSystem
+- **Resources** für Datendefinitionen: MarineData, WeaponData, EnemyData
+- **Scenes** sind eigenständig und kommunizieren über Signals
+
+## Projektstruktur
+```
+deathwatch-roguelite/
+├── CLAUDE.md                  # Diese Datei
+├── project.godot
+├── docs/
+│   ├── GDD.md                 # Game Design Document
+│   ├── ARCHITECTURE.md        # Technische Architektur
+│   └── ROADMAP.md             # Milestones & Tasks
+├── src/
+│   ├── actors/
+│   │   ├── marine/            # Space Marine (Spieler)
+│   │   └── enemies/           # Xenos-Feinde
+│   ├── systems/
+│   │   ├── combat/            # Kampfsystem
+│   │   ├── ai/                # Feind-KI
+│   │   ├── inventory/         # Ausrüstung & Items
+│   │   ├── roguelite/         # Permadeath, Runs, Upgrades
+│   │   └── map/               # Prozedurale Kartengenerierung
+│   ├── ui/
+│   │   ├── hud/               # In-Game HUD
+│   │   └── menus/             # Hauptmenü, Pausemenü
+│   ├── maps/                  # Szenen für Maps/Räume
+│   └── utils/                 # Hilfsfunktionen
+├── assets/
+│   ├── sprites/
+│   ├── audio/
+│   └── fonts/
+└── tests/
+```
+
+## Aktueller Status
+- [ ] Projektstruktur aufgesetzt
+- [ ] GDD erstellt
+- [ ] Godot Projekt initialisiert
+- [ ] Grundlegende Szenenstruktur
+- [ ] Marine Bewegung (v0.1)
+
+## Wichtige Hinweise für Claude Code
+- Immer Godot 4 Syntax verwenden (nicht Godot 3!)
+- Vor größeren Features: Architektur kurz erklären
+- Bei Änderungen an bestehenden Systemen: Auswirkungen nennen
+- Auf Performance achten: `_process` sparsam nutzen, `_physics_process` für Bewegung
