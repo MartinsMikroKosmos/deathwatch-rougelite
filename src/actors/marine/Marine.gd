@@ -49,15 +49,12 @@ func _handle_aiming() -> void:
 	rotation = direction.angle()
 
 
-## Spawns a projectile on left-click.
+## Routes shoot and reload input to the WeaponComponent.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
-		_shoot()
-
-
-## Delegates firing to the WeaponComponent.
-func _shoot() -> void:
-	weapon_component.shoot(global_position, Vector2.from_angle(rotation))
+		weapon_component.shoot(get_global_mouse_position())
+	elif event.is_action_pressed("reload"):
+		weapon_component.reload()
 
 
 # --- Signal Handlers ---

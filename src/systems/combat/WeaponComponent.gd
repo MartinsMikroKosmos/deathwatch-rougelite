@@ -1,6 +1,7 @@
 ## WeaponComponent.gd
-## Handles weapon firing logic: spawning bullets, fire rate cooldown, and muzzle offset.
+## Handles weapon firing logic: ammo, fire rate, reload, and bullet spawning.
 ## Attach as a child Node to any actor that can shoot.
+## Requires a MuzzlePoint (Node2D) child node positioned at the gun barrel.
 extends Node
 
 
@@ -9,56 +10,82 @@ extends Node
 ## The bullet scene to instantiate on each shot.
 @export var bullet_scene: PackedScene
 
-## Minimum seconds between shots.
-@export var fire_rate: float = 0.2
+## Stats resource for the bullet (damage, speed, range, piercing).
+@export var bullet_data: BulletData
 
-## How far from the actor's origin the bullet spawns (pixels, in facing direction).
-@export var muzzle_offset: float = 30.0
+## Maximum rounds before a reload is required.
+@export var magazine_size: int = 30
 
-## Damage passed to each spawned bullet.
-@export var damage: int = 25
+## Time in seconds to reload.
+@export var reload_time: float = 2.0
 
-## Speed passed to each spawned bullet.
-@export var bullet_speed: float = 500.0
+## Minimum seconds between individual shots.
+@export var fire_rate: float = 0.15
+
+
+# --- Node References ---
+
+@onready var muzzle_point: Node2D = $MuzzlePoint
 
 
 # --- State ---
 
+var _current_ammo: int
 var _can_shoot: bool = true
+var _is_reloading: bool = false
+
+
+# --- Lifecycle ---
+
+func _ready() -> void:
+	_current_ammo = magazine_size
 
 
 # --- Public API ---
 
-## Fires a bullet from [param origin] toward [param direction].
-## Does nothing if still on cooldown or no bullet_scene is assigned.
-func shoot(origin: Vector2, direction: Vector2) -> void:
-	if not _can_shoot:
+## Fires one bullet toward [param world_position] (typically the mouse cursor).
+## Does nothing if on cooldown, reloading, or out of ammo.
+func shoot(world_position: Vector2) -> void:
+	if not _can_shoot or _is_reloading or _current_ammo <= 0:
 		return
-	if bullet_scene == null:
-		push_warning("WeaponComponent: bullet_scene is not set.")
+	if bullet_scene == null or bullet_data == null:
+		push_warning("WeaponComponent: bullet_scene or bullet_data is not assigned.")
 		return
 
 	_can_shoot = false
-	_spawn_bullet(origin, direction)
-	get_tree().create_timer(fire_rate).timeout.connect(_on_cooldown_expired)
+	var direction: Vector2 = (world_position - muzzle_point.global_position).normalized()
+	_spawn_bullet(direction)
+
+	_current_ammo -= 1
+	EventBus.ammo_changed.emit(_current_ammo, magazine_size)
+
+	await get_tree().create_timer(fire_rate).timeout
+	_can_shoot = true
 
 
-## Returns true when the weapon is ready to fire.
-func can_shoot() -> bool:
-	return _can_shoot
+## Starts a reload. Ignored if already reloading or magazine is full.
+func reload() -> void:
+	if _is_reloading or _current_ammo == magazine_size:
+		return
+	_is_reloading = true
+	EventBus.reload_started.emit(reload_time)
+
+	await get_tree().create_timer(reload_time).timeout
+
+	_current_ammo = magazine_size
+	_is_reloading = false
+	EventBus.ammo_changed.emit(_current_ammo, magazine_size)
+
+
+## Returns the current ammo count.
+func get_current_ammo() -> int:
+	return _current_ammo
 
 
 # --- Private ---
 
-func _spawn_bullet(origin: Vector2, direction: Vector2) -> void:
-	var bullet: CharacterBody2D = bullet_scene.instantiate()
-	bullet.direction = direction
-	bullet.damage = damage
-	bullet.speed = bullet_speed
+func _spawn_bullet(direction: Vector2) -> void:
+	var bullet: Area2D = bullet_scene.instantiate()
+	bullet.setup(direction, bullet_data, get_parent())
 	get_tree().current_scene.add_child(bullet)
-	# Set global_position after add_child so the transform is valid in the scene tree
-	bullet.global_position = origin + direction * muzzle_offset
-
-
-func _on_cooldown_expired() -> void:
-	_can_shoot = true
+	bullet.global_position = muzzle_point.global_position

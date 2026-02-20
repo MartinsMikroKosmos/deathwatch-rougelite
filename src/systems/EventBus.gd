@@ -9,6 +9,22 @@ extends Node
 ## Emitted when the player's marine is killed.
 signal marine_died
 
+# --- Combat Signals ---
+
+## Emitted when a bullet hits any target with a HealthComponent.
+## [param target] The Node that was hit.
+## [param damage] The amount of damage dealt.
+signal bullet_hit(target: Node, damage: int)
+
+## Emitted when the active weapon's ammo count changes.
+## [param current] Rounds remaining in the magazine.
+## [param max_ammo] Full magazine capacity.
+signal ammo_changed(current: int, max_ammo: int)
+
+## Emitted when a reload begins.
+## [param duration] How long the reload takes in seconds.
+signal reload_started(duration: float)
+
 # --- Enemy Signals ---
 
 ## Emitted when an enemy takes damage from a bullet.
