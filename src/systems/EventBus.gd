@@ -33,9 +33,9 @@ signal reload_started(duration: float)
 signal enemy_hit(enemy: Node, damage: int)
 
 ## Emitted when an enemy is killed.
-## [param enemy_name] The display name of the defeated enemy.
-## [param position] World position where the enemy died.
-signal enemy_died(enemy_name: String, position: Vector2)
+## [param enemy] The enemy Node that was killed.
+## [param xp] Experience points rewarded to the player.
+signal enemy_died(enemy: Node, xp: int)
 
 # --- Item Signals ---
 

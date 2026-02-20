@@ -32,6 +32,13 @@ func _ready() -> void:
 
 # --- Public API ---
 
+## Reinitialises this component with [param max_hp] as the new maximum.
+## Call from the owning actor's _ready() when health is driven by a data resource.
+func setup(max_hp: int) -> void:
+	max_health = max_hp
+	current_health = max_health
+
+
 ## Reduces health by [param amount]. Clamps to 0.
 ## Emits health_changed and died (if lethal) signals.
 func take_damage(amount: int) -> void:

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/systems/combat/EnemyData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+enemy_name = "Hormagaunt"
+max_health = 40
+move_speed = 110.0
+damage = 8
+attack_cooldown = 1.2
+detection_range = 300.0
+xp_reward = 10

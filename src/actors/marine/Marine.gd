@@ -24,6 +24,7 @@ const SPEED_DEFAULT: float = 150.0
 # --- Lifecycle ---
 
 func _ready() -> void:
+	add_to_group("marine")
 	health_component.died.connect(_on_died)
 
 

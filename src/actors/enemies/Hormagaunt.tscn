@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/actors/enemies/Hormagaunt.gd" id="1"]
+[ext_resource type="Script" path="res://src/actors/marine/HealthComponent.gd" id="2"]
+[ext_resource type="Resource" path="res://assets/data/enemies/hormagaunt.tres" id="3"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 8.0
+
+[node name="Hormagaunt" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1")
+enemy_data = ExtResource("3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2")
