@@ -8,9 +8,6 @@ extends CharacterBody2D
 # --- Constants ---
 
 const SPEED_DEFAULT: float = 150.0
-const MUZZLE_OFFSET: float = 30.0
-
-const PROJECTILE_SCENE: PackedScene = preload("res://src/actors/marine/Projectile.tscn")
 
 
 # --- Exports ---
@@ -21,6 +18,7 @@ const PROJECTILE_SCENE: PackedScene = preload("res://src/actors/marine/Projectil
 # --- Node References ---
 
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var weapon_component: Node = $WeaponComponent
 
 
 # --- Lifecycle ---
@@ -57,14 +55,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		_shoot()
 
 
-## Instances a Projectile and launches it in the current facing direction.
+## Delegates firing to the WeaponComponent.
 func _shoot() -> void:
-	var projectile: CharacterBody2D = PROJECTILE_SCENE.instantiate()
-	var shoot_direction: Vector2 = Vector2.from_angle(rotation)
-	get_tree().current_scene.add_child(projectile)
-	# Set global_position after add_child so the transform is valid
-	projectile.global_position = global_position + shoot_direction * MUZZLE_OFFSET
-	projectile.direction = shoot_direction
+	weapon_component.shoot(global_position, Vector2.from_angle(rotation))
 
 
 # --- Signal Handlers ---

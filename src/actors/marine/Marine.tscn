@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://src/actors/marine/Marine.gd" id="1"]
 [ext_resource type="Script" path="res://src/actors/marine/HealthComponent.gd" id="2"]
 [ext_resource type="Texture2D" path="res://assets/sprites/marine/soldier1_gun.png" id="3"]
+[ext_resource type="Script" path="res://src/systems/combat/WeaponComponent.gd" id="4"]
+[ext_resource type="PackedScene" path="res://src/actors/marine/Projectile.tscn" id="5"]
 
 [sub_resource type="CapsuleShape2D" id="1"]
 height = 16.0
@@ -20,6 +22,10 @@ zoom = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
+
+[node name="WeaponComponent" type="Node" parent="."]
+script = ExtResource("4")
+bullet_scene = ExtResource("5")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("2")

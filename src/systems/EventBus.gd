@@ -11,6 +11,11 @@ signal marine_died
 
 # --- Enemy Signals ---
 
+## Emitted when an enemy takes damage from a bullet.
+## [param enemy] The enemy Node that was hit.
+## [param damage] The amount of damage dealt.
+signal enemy_hit(enemy: Node, damage: int)
+
 ## Emitted when an enemy is killed.
 ## [param enemy_name] The display name of the defeated enemy.
 ## [param position] World position where the enemy died.
