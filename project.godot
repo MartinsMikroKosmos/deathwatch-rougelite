@@ -21,3 +21,9 @@ config/icon="res://icon.svg"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+
+[autoload]
+
+EventBus="*res://src/systems/EventBus.gd"
+GameManager="*res://src/systems/GameManager.gd"
+SaveSystem="*res://src/systems/SaveSystem.gd"
