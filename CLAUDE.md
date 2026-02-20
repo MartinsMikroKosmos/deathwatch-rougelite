@@ -61,11 +61,17 @@ deathwatch-roguelite/
 ```
 
 ## Aktueller Status
-- [ ] Projektstruktur aufgesetzt
-- [ ] GDD erstellt
-- [ ] Godot Projekt initialisiert
-- [ ] Grundlegende Szenenstruktur
-- [ ] Marine Bewegung (v0.1)
+- [x] Projektstruktur aufgesetzt
+- [x] GDD erstellt
+- [x] Godot Projekt initialisiert
+- [x] Autoloads eingerichtet (EventBus, GameManager, SaveSystem)
+- [x] HealthComponent erstellt
+- [x] Marine-Szene (CharacterBody2D, WASD, Maus-Aiming, Kenney Sprite)
+- [x] Test-Map mit Wänden und Kamera
+- [ ] Bolter Schusssystem
+- [ ] Gant-Feind (einfache KI)
+- [ ] HUD (HP-Balken, Munition)
+- [ ] Game Over Screen
 
 ## Wichtige Hinweise für Claude Code
 - Immer Godot 4 Syntax verwenden (nicht Godot 3!)
