@@ -8,6 +8,9 @@ extends CharacterBody2D
 # --- Constants ---
 
 const SPEED_DEFAULT: float = 150.0
+const MUZZLE_OFFSET: float = 30.0
+
+const PROJECTILE_SCENE: PackedScene = preload("res://src/actors/marine/Projectile.tscn")
 
 
 # --- Exports ---
@@ -46,6 +49,22 @@ func _handle_movement() -> void:
 func _handle_aiming() -> void:
 	var direction: Vector2 = get_global_mouse_position() - global_position
 	rotation = direction.angle()
+
+
+## Spawns a projectile on left-click.
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("shoot"):
+		_shoot()
+
+
+## Instances a Projectile and launches it in the current facing direction.
+func _shoot() -> void:
+	var projectile: CharacterBody2D = PROJECTILE_SCENE.instantiate()
+	var shoot_direction: Vector2 = Vector2.from_angle(rotation)
+	get_tree().current_scene.add_child(projectile)
+	# Set global_position after add_child so the transform is valid
+	projectile.global_position = global_position + shoot_direction * MUZZLE_OFFSET
+	projectile.direction = shoot_direction
 
 
 # --- Signal Handlers ---
