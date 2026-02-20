@@ -1,7 +1,6 @@
 ## GameManager.gd
 ## Global game state manager. Tracks the active run and score.
 ## Listens to EventBus signals to update state automatically.
-class_name GameManager
 extends Node
 
 

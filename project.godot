@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="deathwatch-rougelite"
+run/main_scene="res://src/actors/marine/Marine.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*res://src/systems/EventBus.gd"
+GameManager="*res://src/systems/GameManager.gd"
+SaveSystem="*res://src/systems/SaveSystem.gd"
 
 [physics]
 
@@ -21,9 +28,3 @@ config/icon="res://icon.svg"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-
-[autoload]
-
-EventBus="*res://src/systems/EventBus.gd"
-GameManager="*res://src/systems/GameManager.gd"
-SaveSystem="*res://src/systems/SaveSystem.gd"

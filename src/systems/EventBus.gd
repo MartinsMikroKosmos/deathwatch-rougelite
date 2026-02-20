@@ -1,7 +1,6 @@
 ## EventBus.gd
 ## Global signal hub for loose coupling between game systems.
 ## All inter-system communication should flow through here.
-class_name EventBus
 extends Node
 
 

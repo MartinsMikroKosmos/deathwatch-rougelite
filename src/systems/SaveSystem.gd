@@ -1,7 +1,6 @@
 ## SaveSystem.gd
 ## Handles persistent meta-progression data across runs.
 ## Data is saved as JSON to the user data directory.
-class_name SaveSystem
 extends Node
 
 
