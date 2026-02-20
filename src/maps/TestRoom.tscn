@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://src/actors/marine/Marine.tscn" id="1"]
+
+[node name="TestRoom" type="Node2D"]
+
+[node name="Marine" parent="." instance=ExtResource("1")]
+position = Vector2(550, 300)
