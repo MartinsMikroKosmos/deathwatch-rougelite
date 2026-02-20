@@ -37,7 +37,7 @@ func _physics_process(_delta: float) -> void:
 ## Reads WASD / arrow key input and moves the marine using move_and_slide.
 func _handle_movement() -> void:
 	var direction: Vector2 = Input.get_vector(
-		"ui_left", "ui_right", "ui_up", "ui_down"
+		"move_left", "move_right", "move_up", "move_down"
 	)
 	velocity = direction * speed
 	move_and_slide()
