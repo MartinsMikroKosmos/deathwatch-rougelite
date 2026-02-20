@@ -72,3 +72,15 @@ deathwatch-roguelite/
 - Vor größeren Features: Architektur kurz erklären
 - Bei Änderungen an bestehenden Systemen: Auswirkungen nennen
 - Auf Performance achten: `_process` sparsam nutzen, `_physics_process` für Bewegung
+
+## README.md aktuell halten
+Die `README.md` im Projektstamm ist die GitHub-Hauptseite des Projekts. Sie muss bei folgenden Änderungen mitgepflegt werden:
+
+- **Neue Autoloads oder Systeme**: Projektstruktur-Tabelle aktualisieren
+- **Milestone abgeschlossen**: Checkbox im Roadmap-Abschnitt abhaken (`- [ ]` → `- [x]`)
+- **Neues Feature implementiert**: Falls es unter einen Roadmap-Punkt fällt, dort abhaken
+- **Autoload-Reihenfolge ändert sich**: Tabelle unter "Getting Started" anpassen
+- **Neue Kapitel/Feinde spielbar**: Tabellen in der README erweitern
+- **Neue Einstiegsvoraussetzungen** (z.B. andere Godot-Version): "Getting Started" anpassen
+
+Faustregel: Wenn der Spielstand oder die Projektstruktur sich ändert, README mitändern.
