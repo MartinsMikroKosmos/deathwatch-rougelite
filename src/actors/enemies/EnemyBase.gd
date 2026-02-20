@@ -24,19 +24,37 @@ const ATTACK_RANGE: float = 32.0
 # --- State ---
 
 var _attack_timer: float = 0.0
+var _is_dead: bool = false
 
 
 # --- Lifecycle ---
 
 func _ready() -> void:
-	# Override max_health with the value from the EnemyData resource
+	if enemy_data == null:
+		push_error("EnemyBase: enemy_data is not assigned on '%s'. Assign a .tres in the Inspector." % name)
+		set_physics_process(false)
+		return
+	if health_comp == null:
+		push_error("EnemyBase: HealthComponent node not found on '%s'." % name)
+		set_physics_process(false)
+		return
 	health_comp.setup(enemy_data.max_health)
 	health_comp.died.connect(_on_died)
+	queue_redraw()
 
 
 func _physics_process(delta: float) -> void:
+	if _is_dead:
+		return
 	_attack_timer -= delta
 	_update_ai(delta)
+
+
+# --- Visual Placeholder ---
+
+## Red square placeholder – remove once a real sprite is assigned.
+func _draw() -> void:
+	draw_rect(Rect2(-8, -8, 16, 16), Color.RED)
 
 
 # --- Private ---
@@ -80,5 +98,6 @@ func _attack(target: Node) -> void:
 # --- Signal Handlers ---
 
 func _on_died() -> void:
+	_is_dead = true
 	EventBus.enemy_died.emit(self, enemy_data.xp_reward)
 	queue_free()

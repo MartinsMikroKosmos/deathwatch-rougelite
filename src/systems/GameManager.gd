@@ -70,6 +70,6 @@ func _on_run_ended(success: bool) -> void:
 	SaveSystem.save_data()
 
 
-func _on_enemy_died(_enemy_name: String, _position: Vector2) -> void:
-	add_score(SCORE_PER_KILL)
+func _on_enemy_died(_enemy: Node, xp: int) -> void:
+	add_score(xp)
 	SaveSystem.total_kills += 1
