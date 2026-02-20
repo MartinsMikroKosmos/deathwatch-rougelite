@@ -18,7 +18,6 @@ const SPEED_DEFAULT: float = 150.0
 # --- Node References ---
 
 @onready var health_component: HealthComponent = $HealthComponent
-@onready var sprite: Sprite2D = $Sprite2D
 
 
 # --- Lifecycle ---
@@ -43,9 +42,10 @@ func _handle_movement() -> void:
 	move_and_slide()
 
 
-## Rotates the Sprite2D to face the current mouse position.
+## Rotates the entire Marine node to face the current mouse position.
 func _handle_aiming() -> void:
-	sprite.look_at(get_global_mouse_position())
+	var direction: Vector2 = get_global_mouse_position() - global_position
+	rotation = direction.angle()
 
 
 # --- Signal Handlers ---

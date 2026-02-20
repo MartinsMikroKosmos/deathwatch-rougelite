@@ -73,6 +73,13 @@ deathwatch-roguelite/
 - Bei Änderungen an bestehenden Systemen: Auswirkungen nennen
 - Auf Performance achten: `_process` sparsam nutzen, `_physics_process` für Bewegung
 
+## Git-Workflow
+Nach jeder abgeschlossenen Änderung (auch kleinen Fixes) immer committen:
+- **Nach jeder Aufgabe**: `git add` + `git commit` mit aussagekräftiger Message
+- **Nach größeren Abschnitten** (neues System, neues Feature, mehrere zusammenhängende Dateien): zusätzlich `git push origin main`
+- Commit-Messages auf **Englisch**, Präfix-Schema: `feat:`, `fix:`, `refactor:`, `docs:`
+- Immer nur die tatsächlich geänderten Dateien stagen, kein `git add .` oder `git add -A`
+
 ## README.md aktuell halten
 Die `README.md` im Projektstamm ist die GitHub-Hauptseite des Projekts. Sie muss bei folgenden Änderungen mitgepflegt werden:
 
